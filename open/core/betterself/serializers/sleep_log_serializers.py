@@ -36,8 +36,7 @@ class SleepLogReadSerializer(BaseModelReadSerializer):
 
         duration_minutes = instance.duration_minutes
 
-        display_name = f"{model_name} | Start Time: {start_time_serialized} UTC. Duration {duration_minutes:.0f} minutes."
-        return display_name
+        return f"{model_name} | Start Time: {start_time_serialized} UTC. Duration {duration_minutes:.0f} minutes."
 
 
 class SleepLogCreateUpdateSerializer(BaseCreateUpdateSerializer, ModelValidatorsMixin):
@@ -69,9 +68,7 @@ class SleepLogCreateUpdateSerializer(BaseCreateUpdateSerializer, ModelValidators
                 start_time=validated_data["start_time"],
                 end_time=validated_data["end_time"],
             ).exists():
-                raise ValidationError(
-                    f"Fields user, start_time, and end_time are not unique!"
-                )
+                raise ValidationError('Fields user, start_time, and end_time are not unique!')
 
             queryset = SleepLog.objects.filter(
                 user=user, end_time__gte=start_time, start_time__lte=end_time

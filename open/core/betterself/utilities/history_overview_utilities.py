@@ -231,8 +231,9 @@ def get_overview_sleep_data(user, start_period, end_period):
     sleep_logs_serialized = serializer.data
 
     time_slept_minutes = sum(
-        [item["duration_minutes"] for item in sleep_logs_serialized]
+        item["duration_minutes"] for item in sleep_logs_serialized
     )
+
     time_slept_hours = time_slept_minutes / 60
 
     response["total_duration_minutes"] = time_slept_minutes
@@ -316,8 +317,7 @@ def get_overview_food_data(user, start_period, end_period, filter_foods=None):
 
 
 def build_timeline_item(time, log_type, summary):
-    result = {"time": time, "log_type": log_type, "summary": summary}
-    return result
+    return {"time": time, "log_type": log_type, "summary": summary}
 
 
 def get_timeline_data(

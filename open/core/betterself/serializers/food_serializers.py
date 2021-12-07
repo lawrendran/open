@@ -31,10 +31,13 @@ class FoodCreateUpdateSerializer(BaseCreateUpdateSerializer):
         user = self.context["request"].user
         is_creating_instance = not self.instance
 
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
-                user=user, name=validated_data["name"],
-            ).exists():
-                raise ValidationError(f"Fields user and name are not unique!")
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
+                user=user,
+                name=validated_data["name"],
+            ).exists()
+        ):
+            raise ValidationError('Fields user and name are not unique!')
 
         return validated_data

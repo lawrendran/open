@@ -21,7 +21,8 @@ class TestWriteUpCaches(TestCase):
             top_p=top_p,
             temperature=temperature,
         )
-        expected_result = f"writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium"
+        expected_result = 'writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium'
+
 
         self.assertEqual(cache_key, expected_result)
 
@@ -36,7 +37,8 @@ class TestWriteUpCaches(TestCase):
         cache_key = get_cache_key_for_text_algo_parameter(
             prompt, batch_size, length, temperature, top_k, top_p
         )
-        expected_result = f"writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium"
+        expected_result = 'writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium'
+
 
         self.assertEqual(cache_key, expected_result)
 
@@ -51,7 +53,8 @@ class TestWriteUpCaches(TestCase):
         cache_key = get_cache_key_for_text_algo_parameter(
             prompt, batch_size, length, temperature, top_k, top_p
         )
-        expected_result = f"writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium"
+        expected_result = 'writeup_6a8d5bebad2295c438c3c26c28813f80_5_10_0.7_40_0.5_english_gpt2-medium'
+
 
         self.assertEqual(cache_key, expected_result)
 
@@ -63,5 +66,6 @@ class TestWriteUpCaches(TestCase):
 
         cache_key = get_cache_key_for_text_algo_parameter(**serializer.validated_data)
 
-        expected_cache_key = f"writeup_8b1a9953c4611296a827abf8c47804d7_5_40_0.7_10_0_english_gpt2-medium"
+        expected_cache_key = 'writeup_8b1a9953c4611296a827abf8c47804d7_5_40_0.7_10_0_english_gpt2-medium'
+
         self.assertEqual(cache_key, expected_cache_key)

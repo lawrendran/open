@@ -53,6 +53,5 @@ class TestAPIPostfixSlash(TestCase):
             is_api_endpoint = url_pattern_serialized[:3] == "api"
             ends_with_forward_slash = url_pattern_serialized[-1] == "/"
 
-            if is_api_endpoint:
-                if not ends_with_forward_slash:
-                    raise ValueError(f"{url_pattern_serialized} does not end with a /!")
+            if is_api_endpoint and not ends_with_forward_slash:
+                raise ValueError(f"{url_pattern_serialized} does not end with a /!")

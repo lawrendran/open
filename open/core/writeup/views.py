@@ -72,11 +72,7 @@ class WriteUpPromptListCreateView(APIView):
         serializer = WriteUpPromptCreateReadSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        if request.user.is_anonymous:
-            user = None
-        else:
-            user = request.user
-
+        user = None if request.user.is_anonymous else request.user
         instance = serializer.save(user=user)
 
         instanced_serialized = WriteUpPromptCreateReadSerializer(instance)

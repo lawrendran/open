@@ -60,11 +60,9 @@ class SleepLog(BaseModelWithUserGeneratedContent):
 
     @property
     def duration_minutes(self):
-        minutes = convert_timedelta_to_minutes(self.duration)
-        return minutes
+        return convert_timedelta_to_minutes(self.duration)
 
     @property
     def duration_hours(self):
         minutes = convert_timedelta_to_minutes(self.duration)
-        hours = minutes / 60
-        return hours
+        return minutes / 60

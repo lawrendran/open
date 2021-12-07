@@ -47,8 +47,7 @@ from open.utilities.date_and_time import (
 
 def get_supplement_name():
     options = list(SUPPLEMENT_FIXTURES_NAME_AND_NOTES.keys())
-    selected_supplement_name = random.choice(options)
-    return selected_supplement_name
+    return random.choice(options)
 
     # # add a random 2 digit number to make it more random
     # two_random_digits = random.randint(10, 99)
@@ -214,10 +213,9 @@ class WellBeingLogFactory(DjangoModelFactory):
 
 def sleep_start_time(sleep_end_time):
     random_minutes = random.randint(1, 30)
-    start_time = get_time_relative_units_ago(
+    return get_time_relative_units_ago(
         sleep_end_time, hours=8, minutes=random_minutes
     )
-    return start_time
 
 
 class SleepLogFactory(DjangoModelFactory):

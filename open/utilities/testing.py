@@ -23,5 +23,4 @@ def create_api_request_context(url, user, data):
     request = factory.post(url, data)
     request.user = user
     force_authenticate(request, user=user)
-    context = {"request": request}
-    return context
+    return {"request": request}

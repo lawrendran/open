@@ -19,12 +19,11 @@ class BaseModel(TimeStampedModel):
 
     def __repr__(self):
         has_name_attr = getattr(self, "name", "")
-        if has_name_attr:
-            label = f"ID {self.id} | {self._meta.verbose_name.title()} - {self.name}"
-        else:
-            label = f"ID {self.id} | {self._meta.verbose_name.title()}"
-
-        return label
+        return (
+            f"ID {self.id} | {self._meta.verbose_name.title()} - {self.name}"
+            if has_name_attr
+            else f"ID {self.id} | {self._meta.verbose_name.title()}"
+        )
 
     def __str__(self):
         return self.__repr__()
@@ -46,5 +45,4 @@ class BaseModelWithUserGeneratedContent(BaseModel):
     def get_update_url(self):
         instance_uuid = str(self.uuid)
         kwargs = {"uuid": instance_uuid}
-        update_url = reverse(self.RESOURCE_NAME, kwargs=kwargs)
-        return update_url
+        return reverse(self.RESOURCE_NAME, kwargs=kwargs)

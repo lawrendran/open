@@ -47,12 +47,11 @@ class LoginNoCSRFAPIView(LoginView):
         return super().post(*args)
 
     def get_response_serializer(self):
-        # override default response serializer to also include user and token (this is used by redux to set userinfo)
-        if getattr(settings, "REST_USE_JWT", False):
-            response_serializer = JWTSerializer
-        else:
-            response_serializer = UserTokenSerializer
-        return response_serializer
+        return (
+            JWTSerializer
+            if getattr(settings, "REST_USE_JWT", False)
+            else UserTokenSerializer
+        )
 
 
 class RegisterNoCSRFAPIView(APIView):
