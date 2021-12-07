@@ -43,10 +43,7 @@ class User(AbstractUser):
         return pytz.timezone(self.timezone_string)
 
     def save(self, *args, **kwargs):
-        needs_api_key = False
-        if not self.pk:
-            needs_api_key = True
-
+        needs_api_key = not self.pk
         super().save(*args, **kwargs)
 
         if needs_api_key:

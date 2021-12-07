@@ -80,7 +80,7 @@ def run():
     output = []
     json_files = get_json_files()
 
-    for count, file_path in enumerate(tqdm(json_files)):
+    for file_path in tqdm(json_files):
         # if count > 100:
         # 	continue
 

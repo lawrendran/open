@@ -78,8 +78,7 @@ def get_matching_user(legacy_id):
         users_df = local_store["users_df"]
 
     user_uuid = get_matching_row(users_df, "id", legacy_id)["uuid"]
-    user = User.objects.get(uuid=user_uuid)
-    return user
+    return User.objects.get(uuid=user_uuid)
 
 
 @cached(cache={})
@@ -96,9 +95,7 @@ def get_matching_activity(activity_id):
 
     # get the matching activity and then grab the uuid (what you've stored it locally as)
     activity_uuid = get_matching_row(events_useractivity, "id", activity_id)["uuid"]
-    activity = Activity.objects.get(uuid=activity_uuid)
-
-    return activity
+    return Activity.objects.get(uuid=activity_uuid)
 
 
 @cached(cache={})
@@ -114,8 +111,7 @@ def get_matching_supplement(legacy_id):
         supplements_df = local_store["supplements_df"]
 
     instance_uuid = get_matching_row(supplements_df, "id", legacy_id)["uuid"]
-    instance = Supplement.objects.get(uuid=instance_uuid)
-    return instance
+    return Supplement.objects.get(uuid=instance_uuid)
 
 
 @cached(cache={})
@@ -133,8 +129,7 @@ def get_matching_supplement_stack(legacy_id):
     instance_uuid = get_matching_row(supplements_usersupplementstack, "id", legacy_id)[
         "uuid"
     ]
-    instance = SupplementStack.objects.get(uuid=instance_uuid)
-    return instance
+    return SupplementStack.objects.get(uuid=instance_uuid)
 
 
 def import_legacy_users(engine):
@@ -305,9 +300,9 @@ def import_legacy_supplements_log(engine):
         if index % 500 == 0:
             print(f"Adding {instance} to Supplement Logs to Create")
 
-    print(f"Bulk Creating Supplements")
+    print('Bulk Creating Supplements')
     SupplementLog.objects.bulk_create(supplement_logs_to_create, 500)
-    print(f"Finished Creating Supplements")
+    print('Finished Creating Supplements')
 
 
 def import_legacy_activities(engine):

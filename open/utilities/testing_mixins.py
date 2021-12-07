@@ -49,13 +49,8 @@ class OpenDefaultTest(APITestCase):
         cls.set_reversed_url()
 
     def _get_response(self, staff=False):
-        if staff:
-            client = self.staff_user_client
-        else:
-            client = self.registered_user_client
-
-        response = client.get(self.url)
-        return response
+        client = self.staff_user_client if staff else self.registered_user_client
+        return client.get(self.url)
 
     def _get_response_data(self, staff=False):
         response = self._get_response(staff)

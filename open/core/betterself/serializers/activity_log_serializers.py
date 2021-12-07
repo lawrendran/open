@@ -56,12 +56,17 @@ class ActivityLogCreateUpdateSerializer(
             activity = Activity.objects.get(uuid=activity_uuid, user=user)
             validated_data["activity"] = activity
 
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
-                user=user, activity=activity, time=validated_data["time"],
-            ).exists():
-                raise ValidationError(
-                    f"Fields user, ingredient, measurement, and quantity are not unique!"
-                )
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
+                user=user,
+                activity=activity,
+                time=validated_data["time"],
+            ).exists()
+        ):
+            raise ValidationError(
+                'Fields user, ingredient, measurement, and quantity are not unique!'
+            )
+
 
         return validated_data

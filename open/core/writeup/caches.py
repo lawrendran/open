@@ -21,8 +21,7 @@ def get_cache_key_for_text_algo_parameter(
     prompt_encoded = prompt.strip().encode("utf-8")
     prompt_hash = hashlib.md5(prompt_encoded).hexdigest()
 
-    cache_key = f"{app}_{prompt_hash}_{batch_size}_{length}_{temperature}_{top_k}_{top_p}_{language}_{model_name}"
-    return cache_key
+    return f"{app}_{prompt_hash}_{batch_size}_{length}_{temperature}_{top_k}_{top_p}_{language}_{model_name}"
 
 
 def get_cache_key_for_processing_algo_parameter(cache_key):

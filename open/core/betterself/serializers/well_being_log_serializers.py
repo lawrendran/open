@@ -46,10 +46,13 @@ class WellBeingLogCreateUpdateSerializer(
         user = self.context["request"].user
         is_creating_instance = not self.instance
 
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
-                user=user, time=validated_data["time"],
-            ).exists():
-                raise ValidationError(f"Fields user and time are not unique!")
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
+                user=user,
+                time=validated_data["time"],
+            ).exists()
+        ):
+            raise ValidationError('Fields user and time are not unique!')
 
         return validated_data

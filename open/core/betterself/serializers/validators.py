@@ -36,9 +36,6 @@ class ModelValidatorsMixin:
     """ a mixin holding all the commonly used validators in the validate_X step"""
 
     def validate_activity_uuid(self, value):
-        user = None
-        if self.context["request"]:
-            user = self.context["request"].user
-
+        user = self.context["request"].user if self.context["request"] else None
         validate_model_uuid(uuid=value, model=Activity, user=user)
         return value

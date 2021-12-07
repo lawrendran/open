@@ -52,10 +52,14 @@ class FoodLogCreateUpdateSerializer(BaseCreateUpdateSerializer, ModelValidatorsM
             food = Food.objects.get(uuid=food_uuid, user=user)
             validated_data["food"] = food
 
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
-                user=user, food=food, time=validated_data["time"],
-            ).exists():
-                raise ValidationError(f"Fields user, food, and time are not unique!")
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
+                user=user,
+                food=food,
+                time=validated_data["time"],
+            ).exists()
+        ):
+            raise ValidationError('Fields user, food, and time are not unique!')
 
         return validated_data

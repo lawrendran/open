@@ -36,8 +36,7 @@ class IngredientCompositionReadSerializer(BaseModelReadSerializer):
         )
 
     def get_display_name(self, instance):
-        name = f"{instance.ingredient.name} {instance.quantity:.2f}{instance.measurement.short_name}"
-        return name
+        return f"{instance.ingredient.name} {instance.quantity:.2f}{instance.measurement.short_name}"
 
 
 class IngredientCompositionCreateUpdateSerializer(BaseCreateUpdateSerializer):
@@ -81,15 +80,17 @@ class IngredientCompositionCreateUpdateSerializer(BaseCreateUpdateSerializer):
         # check for uniqueconstraints issues with creation
         # for updates, probably be a little bit easier
         # and skip for now
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
                 user=user,
                 ingredient=ingredient,
                 measurement=measurement,
                 quantity=validated_data["quantity"],
-            ).exists():
-                raise ValidationError(
-                    "Fields user, ingredient, measurement, and quantity are not unique!"
-                )
+            ).exists()
+        ):
+            raise ValidationError(
+                "Fields user, ingredient, measurement, and quantity are not unique!"
+            )
 
         return validated_data

@@ -74,10 +74,7 @@ class UserCreateSerializer(ModelSerializer):
         username = validated_data.pop("username")
         password = validated_data.pop("password")
 
-        is_betterself_user = False
-        if validated_data["signed_up_from"] == "betterself":
-            is_betterself_user = True
-
+        is_betterself_user = validated_data["signed_up_from"] == "betterself"
         validated_data["is_betterself_user"] = is_betterself_user
 
         user = User.objects.create(username=username, **validated_data)

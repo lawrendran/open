@@ -46,8 +46,7 @@ class DailyProductivityLogReadSerializer(BaseModelReadSerializer):
             time_label, yyyy_mm_dd_format_1
         )
 
-        display_name = f"{model_name} | Date: {serialized_time}"
-        return display_name
+        return f"{model_name} | Date: {serialized_time}"
 
 
 class DailyProductivityLogCreateUpdateSerializer(
@@ -78,10 +77,13 @@ class DailyProductivityLogCreateUpdateSerializer(
         user = self.context["request"].user
         is_creating_instance = not self.instance
 
-        if is_creating_instance:
-            if self.Meta.model.objects.filter(
-                user=user, date=validated_data["date"],
-            ).exists():
-                raise ValidationError(f"Fields user and date need to be unique!")
+        if (
+            is_creating_instance
+            and self.Meta.model.objects.filter(
+                user=user,
+                date=validated_data["date"],
+            ).exists()
+        ):
+            raise ValidationError('Fields user and date need to be unique!')
 
         return validated_data

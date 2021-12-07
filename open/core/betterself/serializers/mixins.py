@@ -16,15 +16,13 @@ class BaseModelReadSerializer(ModelSerializer):
     def get_display_name(self, instance):
         if hasattr(instance, "name"):
             return instance.name
-        else:
-            model = self.Meta.model
-            model_name = model._meta.verbose_name
+        model = self.Meta.model
+        model_name = model._meta.verbose_name
 
-            created = instance.created
-            created_serialized = format_datetime_to_human_readable(created)
+        created = instance.created
+        created_serialized = format_datetime_to_human_readable(created)
 
-            display_name = f"{model_name} | Create Time: {created_serialized} UTC"
-            return display_name
+        return f"{model_name} | Create Time: {created_serialized} UTC"
 
 
 class BaseCreateUpdateSerializer(ModelSerializer):
@@ -38,8 +36,7 @@ class BaseCreateUpdateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         create_model = self.Meta.model
-        obj = create_model.objects.create(**validated_data)
-        return obj
+        return create_model.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         for key, value in validated_data.items():

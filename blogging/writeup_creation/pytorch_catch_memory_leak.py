@@ -8,8 +8,7 @@ def get_process_prompt_response(request, validated_data):
             )
             torch.cuda.empty_cache()
 
-            oom_response = get_oom_response(validated_data)
-            return oom_response
+            return get_oom_response(validated_data)
 
     response = serialize_sequences_to_response(
         output,

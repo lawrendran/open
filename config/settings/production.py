@@ -24,8 +24,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": env("REDIS_URL"),
-        # make cache timeouts last three days
-        "TIMEOUT": 60 * 60 * 24 * 3,
+        "TIMEOUT": 60 ** 2 * 24 * 3,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # Mimicing memcache behavior.
@@ -36,6 +35,7 @@ CACHES = {
         },
     }
 }
+
 
 CHANNEL_LAYERS = {
     "default": {

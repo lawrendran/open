@@ -41,16 +41,15 @@ def get_random_prompt():
 
     random_word = random.choice(random_nouns)
     random_word_2 = random.choice(random_nouns)
-    data = {
+    return {
         "prompt": f"Today marks the day of {random_word}, I am eating {random_word}. Okay? {random_word_2}"
     }
-    return data
 
 
 async def fetch_url(session, url):
-    data = {"prompt": f"Hello"}
+    data = {"prompt": 'Hello'}
 
-    async with session.post(url, data=data, timeout=60 * 60) as response:
+    async with session.post(url, data=data, timeout=60**2) as response:
         if response.status != 200:
             error_text = await response.text()
 
@@ -102,7 +101,7 @@ async def fetch_via_websocket(session, url):
 
 async def fetch_all_urls_via_websockets(urls):
     connector = aiohttp.TCPConnector(limit=100)
-    timeout = aiohttp.ClientTimeout(total=60 * 60)
+    timeout = aiohttp.ClientTimeout(total=60**2)
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
         results = await asyncio.gather(
